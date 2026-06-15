@@ -276,6 +276,25 @@
   @keyframes nudge{50%{transform:translateX(6px)}}
   @keyframes cfade{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
+  /* ===== MCP connect slide ===== */
+  .mcp-url{display:flex;align-items:center;gap:1rem;margin:1.5rem 0 1.3rem;padding:.9rem 1.2rem;
+    border:1px solid rgba(95,220,255,.4);border-radius:14px;background:rgba(54,200,255,.08);position:relative}
+  .mcp-url .lbl{font-family:'Space Grotesk';font-size:.68rem;letter-spacing:.2em;color:#7fd9ff;text-transform:uppercase;flex-shrink:0}
+  .mcp-url .u{font-family:'Space Grotesk';font-size:clamp(.95rem,1.8vw,1.35rem);color:#fff;font-weight:600;flex:1;word-break:break-all}
+  .mcp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:860px){.mcp-grid{grid-template-columns:1fr}}
+  .mcp-card{border:1px solid var(--line);border-radius:14px;padding:1rem 1.15rem;background:rgba(255,255,255,.03)}
+  .mcp-card h3{font-size:1rem;font-weight:600;margin-bottom:.55rem;display:flex;align-items:center;gap:.5rem}
+  .mcp-card .mono{font-family:'Space Grotesk';font-size:.8rem;color:#aeb4dd;line-height:1.65;word-break:break-all}
+  .mcp-card .mono .hl{color:#7fd9ff}
+  .mcp-card .step{color:var(--muted);font-size:.86rem;line-height:1.6}
+  .mcp-card .step b{color:#fff;font-weight:500}
+  .mcp-foot{margin-top:1.3rem;color:var(--muted);font-size:.92rem;line-height:1.7}
+  .mcp-foot a{color:#7fd9ff;text-decoration:none;border-bottom:1px solid rgba(95,220,255,.4)}
+  .mcp-foot b{color:#fff}
+  .mcp-tools{display:inline-flex;align-items:center;gap:.5rem;font-family:'Space Grotesk';font-size:.8rem;
+    color:#7fd9ff;background:rgba(54,200,255,.1);border:1px solid var(--line);padding:.3rem .8rem;border-radius:8px;margin-left:.5rem}
+
   /* genre cards */
   .genres{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:2.4rem}
   @media(max-width:860px){.genres{grid-template-columns:1fr}}
@@ -315,7 +334,7 @@
   <div class="nebula"></div>
   <canvas class="stars"></canvas>
   <div class="progress" id="bar"></div>
-  <div class="brand">◐ Oracle · v1.0.0</div>
+  <div class="brand">◐ Oracle · v1.1.0</div>
   <div class="pageno" id="pageno">01 / 02</div>
 
   <div class="deck" id="deck">
@@ -604,6 +623,50 @@
             <span class="ok">0:08-0:11</span> <span class="cmd">135mm 大特写，泪滑落</span><br>
             <span class="ok">0:11-0:15</span> <span class="cmd">100mm 微距，手颤抖 → FREEZE</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE : CONNECT MCP — SIAM SHORT ===== -->
+    <section class="slide">
+      <div class="wrap">
+        <span class="kicker"><span class="dot"></span>Power-up · MCP</span>
+        <h1 style="font-size:clamp(1.8rem,4vw,3rem)">ต่อ <span class="grad">Siam Short Studio</span> เข้า AI</h1>
+        <p class="lead" style="margin-top:1rem">
+          MCP server ตัวเดียว = <b style="color:#fff">Seedance Workflow</b> ให้ AI agent สั่งทำหนังครบ —
+          สร้างโปรเจกต์ · ตัวละคร · ฉาก · ช็อต · gen ภาพ/วิดีโอ
+          <span class="mcp-tools">⚙ 69 tools</span>
+        </p>
+        <div class="mcp-url copybox">
+          <span class="lbl">MCP Server URL</span>
+          <span class="u" id="mcpUrl">https://studio.siamshort.com/api/mcp</span>
+          <button class="copybtn" id="copyMcpUrl" style="position:static">⧉ Copy</button>
+        </div>
+        <div class="mcp-grid">
+          <div class="mcp-card copybox">
+            <h3>💻 Claude Code / Desktop <button class="copybtn" id="copyClaudeMcp" style="top:.8rem;right:.8rem">⧉</button></h3>
+            <div class="mono" id="claudeMcpCmd">claude mcp add --transport http seedance-workflow https://studio.siamshort.com/api/mcp --header <span class="hl">"Authorization: Bearer YOUR_API_KEY"</span></div>
+          </div>
+          <div class="mcp-card">
+            <h3>🌐 Claude.ai (Web)</h3>
+            <div class="step"><b>Settings → Connectors → Add custom connector</b><br>
+              ใส่ URL: <span class="mono"><span class="hl">…/api/mcp?token=YOUR_API_KEY</span></span><br>
+              <span style="font-size:.8rem">(เว็บไม่รองรับ header — ใช้ <b>?token=</b> แทน)</span></div>
+          </div>
+          <div class="mcp-card">
+            <h3>🤖 Codex (OpenAI)</h3>
+            <div class="step">เลือก <b>เชื่อมต่อ MCP กำหนดเอง</b> → tab <b>HTTP streamable</b><br>
+              ใส่ URL ด้านบน + Header:<br>
+              <span class="mono"><span class="hl">Authorization: Bearer YOUR_API_KEY</span></span></div>
+          </div>
+          <div class="mcp-card">
+            <h3>🖱️ Cursor / VS Code</h3>
+            <div class="step">เพิ่มใน <span class="mono">.cursor/mcp.json</span> → <span class="mono">url</span> + <span class="mono">transport: "http"</span> + header <span class="mono"><span class="hl">Authorization: Bearer</span></span></div>
+          </div>
+        </div>
+        <div class="mcp-foot">
+          🔑 <b>Auth:</b> <span class="mono" style="color:#7fd9ff">Authorization: Bearer sk-sdwf-…</span> (แนะนำ) หรือ <span class="mono" style="color:#7fd9ff">?token=</span> สำหรับ Claude.ai web ·
+          API key ขอจาก <b>admin</b> &nbsp;·&nbsp; 📖 เอกสารเต็ม: <a href="https://studio.siamshort.com/api-docs" target="_blank">studio.siamshort.com/api-docs</a>
         </div>
       </div>
     </section>
@@ -1040,6 +1103,8 @@ echo "📍 https://github.com/$GITHUB_USERNAME/$REPO_NAME"</script>
   }
   wireCopy(document.getElementById('copyScript'),()=>src);
   wireCopy(document.getElementById('copyInstall'),()=>document.getElementById('installCmd').textContent);
+  wireCopy(document.getElementById('copyMcpUrl'),()=>document.getElementById('mcpUrl').textContent);
+  wireCopy(document.getElementById('copyClaudeMcp'),()=>document.getElementById('claudeMcpCmd').textContent);
 
   // download FILM-DIRECTOR.md (offline-safe Blob)
   const dlbtn=document.getElementById('dlFile');
@@ -1052,7 +1117,7 @@ echo "📍 https://github.com/$GITHUB_USERNAME/$REPO_NAME"</script>
     dlbtn.textContent='✓ ดาวน์โหลดแล้ว — เอาไปให้ AI อ่านได้เลย';dlbtn.classList.add('done');
   };}
 
-  const APP_VERSION='1.0.0';
+  const APP_VERSION='1.1.0';
   console.log('%c◐ Oracle Class Deck v'+APP_VERSION,'color:#5fdcff;font-weight:bold');
   const slides=[...document.querySelectorAll('.slide')];
   let i=0;
